@@ -10,7 +10,8 @@ class Article extends Model
     protected $fillable = [
     	'title',
     	'body',
-    	'published_at'
+    	'published_at',
+    	'user_id'
     ];
 
     protected $dates = ['published_at'];  //Reads the data from these columns in Carbon instance.
@@ -37,9 +38,9 @@ class Article extends Model
 	/**
 	 * An article is owned a user.
 	 */
-	public function Owner()
+	public function user()
 	{
-		$this->belongsTo('App\User');
+		return $this->belongsTo('App\User');
 	}
 }
 
