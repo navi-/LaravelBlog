@@ -1,0 +1,26 @@
+<?php namespace App\Http\Controllers;
+
+/**
+* 
+*/
+class StaticPageCntlr extends Controller
+{
+	
+	public function __construct()
+	{
+		$this->middleware('guest');
+	}
+
+	public function contact() {
+    	return view('pages.contact');
+	}
+
+	public functoin about(){
+		
+	}
+/*	function __construct(argument)
+	{
+		# code...
+	}
+	*/
+}
