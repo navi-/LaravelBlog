@@ -17,12 +17,13 @@ class Article extends Model
 
     //set<columnname>Attribute  // _ in variable name is replaced by Camel case
 	//Almost constructor class
+	//Mutator
 
 	public function setPublishedAtAttribute($date){
 		$this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d',$date);
 	}    
 
-	//Scopes for building queries
+	//Scopes for building queries - Query Scope
 	// Name: scope<scopename>
 
 	public function scopePublished($query) {
@@ -31,6 +32,14 @@ class Article extends Model
 
 	public function scopeUnpublished($query) {
 		$query->where('published_at', '>=', Carbon::now());
+	}
+
+	/**
+	 * An article is owned a user.
+	 */
+	public function Owner()
+	{
+		$this->belongsTo('App\User');
 	}
 }
 

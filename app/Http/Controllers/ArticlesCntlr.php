@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-/*use Illuminate\Http\Request;*/
+use Illuminate\Http\Request;
 
 use App\Article;
 
 use App\Http\Requests;
 use Carbon\Carbon;
 
-use Request;
-use Requests\CreateArticle;
+#use Request;
+use App\Http\Requests\ArticleRequest;
 use App\Http\Controllers\Controller;
 
 class ArticlesCntlr extends Controller
@@ -34,6 +34,7 @@ class ArticlesCntlr extends Controller
     public function create()
     {
         return view('articles.create');
+        
     }
 
     /**
@@ -41,14 +42,16 @@ class ArticlesCntlr extends Controller
      *
      * @return Response
      */
-    public function store(Requests\CreateArticle $request)
+    public function store(ArticleRequest $request  /*Request $request*/)
     {
         //Validation happens before the method is executed.
-
+        //Validation without using Laravel form request
+        #$this->validate($request, ['title' => 'required', 'body' => 'required']);
+        
         #$input = Request::all();
         #$input['published_at'] = Carbon::now();
         #return $input;
-        Article::create(Request::all()); 
+        Article::create($request->all()); 
 
         return redirect('articles');
     }
@@ -84,7 +87,9 @@ class ArticlesCntlr extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -93,9 +98,13 @@ class ArticlesCntlr extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, ArticleRequest $request)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        $article->update($request->all());
+
+        return redirect('articles');
     }
 
     /**

@@ -19,11 +19,15 @@ Route::get('contact', 'StaticPageCntlr@contact');
 
 Route::get('about', 'StaticPageCntlr@about');
 
-Route::get('articles', 'ArticlesCntlr@index');
-Route::get('articles/create', 'ArticlesCntlr@create');
-Route::get('articles/{id}', 'ArticlesCntlr@show');
+// Route::get('articles', 'ArticlesCntlr@index');
+// Route::get('articles/create', 'ArticlesCntlr@create');
+// Route::get('articles/{id}', 'ArticlesCntlr@show');
 
-Route::post('articles', 'ArticlesCntlr@store');
+// Route::post('articles', 'ArticlesCntlr@store');
+// Route::get('articles/{id}/edit', 'ArticlesCntlr@edit');
+
+Route::resource('articles', 'ArticlesCntlr');
+
 /*Route::get('contact', function () {
     return 'Contact Us Here';
 });*/
